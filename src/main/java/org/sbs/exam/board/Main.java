@@ -44,7 +44,9 @@ public class Main {
         Article article = new Article(id, title, body);
         lastArticle = article;
 
-        System.out.printf("%d번 게시물이 등록되었습니다.\n", id);
+        articles.add(article);
+
+        System.out.printf("%d번 게시물이 등록되었습니다.\n", article.id);
         articleLastId = id;
       }
       else if(cmd.equals("/usr/article/list")) {
