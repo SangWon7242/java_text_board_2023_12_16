@@ -1,5 +1,7 @@
 package org.sbs.exam.board;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 /*
 - [o] /usr/article/detail 입력처리
@@ -12,6 +14,13 @@ public class Main {
 
     int articleLastId = 0;
     Article lastArticle = null;
+    List<Article> articles = new ArrayList<>();
+    
+    // 테스트 게시물 데이터 3개 등록
+    articles.add(new Article(1, "제목1", "내용1"));
+    articles.add(new Article(2, "제목2", "내용2"));
+    articles.add(new Article(3, "제목3", "내용3"));
+    // 테스트 게시물 데이터 3개 등록 끝
 
     System.out.println("== 게시판 v 0.1 ==");
     System.out.println("== 게시판 시작 ==");
@@ -24,7 +33,7 @@ public class Main {
         System.out.println("== 게시물 등록 ==");
         System.out.printf("제목 : ");
         String title = sc.nextLine();
-
+        
         System.out.printf("내용 : ");
         String body = sc.nextLine();
 
@@ -36,6 +45,17 @@ public class Main {
         System.out.println("생성 된 게시물 객체 : " + article);
         System.out.printf("%d번 게시물이 등록되었습니다.\n", article.id);
         articleLastId++;
+      }
+      else if(cmd.equals("/usr/article/list")) {
+        System.out.println("== 게시물 리스트 ==");
+        System.out.println("-------------------");
+        System.out.println("번호 / 제목");
+
+        for(Article article : articles) {
+          System.out.printf("%d / %s\n", article.id, article.title);
+        }
+
+        System.out.println("===================");
       }
       else if(cmd.equals("/usr/article/detail")) {
         Article article = lastArticle;
