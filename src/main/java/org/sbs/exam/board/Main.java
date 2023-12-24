@@ -47,19 +47,28 @@ public class Main {
         articleLastId = id;
       }
       else if(rq.getUrlPath().equals("/usr/article/list")) {
+        Map<String, String> params = rq.getParams();
+
         System.out.println("== 게시물 리스트 ==");
         System.out.println("-------------------");
         System.out.println("번호 / 제목");
 
-        /*
-        for(Article article : articles) {
-          System.out.printf("%d / %s\n", article.id, article.title);
-        }
-         */
+        boolean orderByIdDesc = true;
 
-        for(int i = articles.size() - 1; i >= 0; i--) {
-          Article article = articles.get(i);
-          System.out.printf("%d / %s\n", article.id, article.title);
+        if(params.containsKey("orderBy") && params.get("orderBy").equals("idAsc")) {
+          orderByIdDesc = false;
+        }
+
+        if(orderByIdDesc) {
+          for(int i = articles.size() - 1; i >= 0; i--) {
+            Article article = articles.get(i);
+            System.out.printf("%d / %s\n", article.id, article.title);
+          }
+        }
+        else {
+          for (Article article : articles) {
+            System.out.printf("%d / %s\n", article.id, article.title);
+          }
         }
 
         System.out.println("===================");
