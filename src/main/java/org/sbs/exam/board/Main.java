@@ -66,7 +66,20 @@ public class Main {
       }
       else if(rq.getUrlPath().equals("/usr/article/detail")) {
         Map<String, String> params = rq.getParams();
-        int id = Integer.parseInt(params.get("id"));
+
+        if(params.containsKey("id") == false) {
+          System.out.println("id를 입력해주세요.");
+          continue;
+        }
+
+        int id = 0;
+        try {
+          id = Integer.parseInt(params.get("id"));
+        } catch (NumberFormatException e) {
+          System.out.println("id를 정수형태로 입력해주세요.");
+          continue;
+        }
+
 
         // rq.getParams().get("id");
 
