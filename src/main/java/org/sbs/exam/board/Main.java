@@ -47,45 +47,7 @@ public class Main {
         articleLastId = id;
       }
       else if(rq.getUrlPath().equals("/usr/article/list")) {
-        Map<String, String> params = rq.getParams();
-
-        System.out.println("== 게시물 리스트 ==");
-        System.out.println("-------------------");
-        System.out.println("번호 / 제목");
-
-        List<Article> filteredArticles = articles;
-
-        if(params.containsKey("searchKeyword")) {
-          String searchKeyword = params.get("searchKeyword");
-
-          filteredArticles = new ArrayList<>();
-
-          for(Article article : articles) {
-            boolean matched = article.title.contains(searchKeyword) || article.body.contains(searchKeyword);
-
-            if(matched) {
-              filteredArticles.add(article);
-            }
-          }
-        }
-
-        List<Article> sortedArticles = filteredArticles;
-
-        boolean orderByIdDesc = true;
-
-        if(params.containsKey("orderBy") && params.get("orderBy").equals("idAsc")) {
-          orderByIdDesc = false;
-        }
-
-        if(orderByIdDesc) {
-          sortedArticles = Util.reverseList(sortedArticles);
-        }
-
-        for (Article article : sortedArticles) {
-          System.out.printf("%d / %s\n", article.id, article.title);
-        }
-
-        System.out.println("===================");
+        actionUsrArticleList(rq, articles);
       }
       else if(rq.getUrlPath().equals("/usr/article/detail")) {
         Map<String, String> params = rq.getParams();
@@ -132,6 +94,48 @@ public class Main {
     System.out.println("== 게시판 실행 끝 ==");
 
     sc.close();
+  }
+
+  private static void actionUsrArticleList(Rq rq, List<Article> articles) {
+    Map<String, String> params = rq.getParams();
+
+    System.out.println("== 게시물 리스트 ==");
+    System.out.println("-------------------");
+    System.out.println("번호 / 제목");
+
+    List<Article> filteredArticles = articles;
+
+    if(params.containsKey("searchKeyword")) {
+      String searchKeyword = params.get("searchKeyword");
+
+      filteredArticles = new ArrayList<>();
+
+      for(Article article : articles) {
+        boolean matched = article.title.contains(searchKeyword) || article.body.contains(searchKeyword);
+
+        if(matched) {
+          filteredArticles.add(article);
+        }
+      }
+    }
+
+    List<Article> sortedArticles = filteredArticles;
+
+    boolean orderByIdDesc = true;
+
+    if(params.containsKey("orderBy") && params.get("orderBy").equals("idAsc")) {
+      orderByIdDesc = false;
+    }
+
+    if(orderByIdDesc) {
+      sortedArticles = Util.reverseList(sortedArticles);
+    }
+
+    for (Article article : sortedArticles) {
+      System.out.printf("%d / %s\n", article.id, article.title);
+    }
+
+    System.out.println("===================");
   }
 }
 
