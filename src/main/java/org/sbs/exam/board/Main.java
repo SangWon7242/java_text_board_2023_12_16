@@ -1,11 +1,12 @@
 package org.sbs.exam.board;
 
+import org.sbs.exam.board.container.Container;
+
 import java.util.*;
 
 public class Main {
   static int articleLastId = 0;
   static List<Article> articles = new ArrayList<>();
-  static Scanner sc = new Scanner(System.in);
 
   static void makeTestData() {
     for(int i = 1; i <= 100; i++) {
@@ -14,6 +15,8 @@ public class Main {
   }
 
   public static void main(String[] args) {
+    Scanner sc = Container.sc;
+
     makeTestData();
 
     if(articles.size() > 0) {
@@ -120,9 +123,9 @@ public class Main {
     }
 
     System.out.printf("새 제목 : ");
-    article.title = sc.nextLine();
+    article.title = Container.sc.nextLine();
     System.out.printf("새 내용 : ");
-    article.body = sc.nextLine();
+    article.body = Container.sc.nextLine();
 
     System.out.printf("%d번 게시물을 수정하였습니다.\n", article.id);
   }
@@ -130,10 +133,10 @@ public class Main {
   private static void actionUsrArticleWrite() {
     System.out.println("== 게시물 등록 ==");
     System.out.printf("제목 : ");
-    String title = sc.nextLine();
+    String title = Container.sc.nextLine();
 
     System.out.printf("내용 : ");
-    String body = sc.nextLine();
+    String body = Container.sc.nextLine();
 
     int id = articleLastId + 1;
 
