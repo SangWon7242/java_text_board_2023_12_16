@@ -31,20 +31,8 @@ public class Main {
       Rq rq = new Rq(cmd);
 
       if(rq.getUrlPath().equals("/usr/article/write")) {
-        System.out.println("== 게시물 등록 ==");
-        System.out.printf("제목 : ");
-        String title = sc.nextLine();
-        
-        System.out.printf("내용 : ");
-        String body = sc.nextLine();
-
-        int id = articleLastId + 1;
-
-        Article article = new Article(id, title, body);
-        articles.add(article);
-
-        System.out.printf("%d번 게시물이 등록되었습니다.\n", article.id);
-        articleLastId = id;
+        actionUsrArticleWrite(sc, articles, articleLastId);
+        articleLastId++;
       }
       else if(rq.getUrlPath().equals("/usr/article/list")) {
         actionUsrArticleList(rq, articles);
@@ -64,6 +52,23 @@ public class Main {
     System.out.println("== 게시판 실행 끝 ==");
 
     sc.close();
+  }
+
+  private static void actionUsrArticleWrite(Scanner sc, List<Article> articles, int articleLastId) {
+    System.out.println("== 게시물 등록 ==");
+    System.out.printf("제목 : ");
+    String title = sc.nextLine();
+
+    System.out.printf("내용 : ");
+    String body = sc.nextLine();
+
+    int id = articleLastId + 1;
+
+    Article article = new Article(id, title, body);
+    articles.add(article);
+
+    System.out.printf("%d번 게시물이 등록되었습니다.\n", article.id);
+    articleLastId = id;
   }
 
   private static void actionUsrArticleDetail(Rq rq, List<Article> articles) {
