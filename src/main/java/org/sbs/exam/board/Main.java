@@ -53,7 +53,23 @@ public class Main {
         System.out.println("-------------------");
         System.out.println("번호 / 제목");
 
-        List<Article> sortedArticles = articles;
+        List<Article> filteredArticles = articles;
+
+        if(params.containsKey("searchKeyword")) {
+          String searchKeyword = params.get("searchKeyword");
+
+          filteredArticles = new ArrayList<>();
+
+          for(Article article : articles) {
+            boolean matched = article.title.contains(searchKeyword) || article.body.contains(searchKeyword);
+
+            if(matched) {
+              filteredArticles.add(article);
+            }
+          }
+        }
+
+        List<Article> sortedArticles = filteredArticles;
 
         boolean orderByIdDesc = true;
 
@@ -86,9 +102,6 @@ public class Main {
           System.out.println("id를 정수형태로 입력해주세요.");
           continue;
         }
-
-
-        // rq.getParams().get("id");
 
         if (articles.isEmpty()) {
           System.out.println("게시물이 존재하지 않습니다.");
