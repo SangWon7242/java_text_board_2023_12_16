@@ -17,20 +17,19 @@ public class App {
     System.out.println("== 게시판 시작 ==");
 
     while (true) {
-      Session session = Container.getSession();
-
-      Member loginedMember = (Member) session.getAttribute("loginedMember");
+      Rq rq = new Rq();
 
       String promptName = "명령";
 
-      if(loginedMember != null) {
+      if(rq.isLogined()) {
+        Member loginedMember = rq.getLoginedMember();
         promptName = loginedMember.getLoginId();
       }
 
       System.out.printf("%s ) ", promptName);
       String cmd = sc.nextLine();
 
-      Rq rq = new Rq(cmd);
+      rq.setCommand(cmd);
 
       if (rq.getUrlPath().equals("/usr/article/write")) {
         Container.usrArticleController.actionWrite();

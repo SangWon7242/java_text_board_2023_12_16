@@ -1,11 +1,13 @@
 package org.sbs.exam.board;
 
+import lombok.NoArgsConstructor;
 import org.sbs.exam.board.container.Container;
 import org.sbs.exam.board.member.dto.Member;
 import org.sbs.exam.board.session.Session;
 
 import java.util.Map;
 
+@NoArgsConstructor
 public class Rq {
   String url;
   Map<String, String> params;
@@ -23,6 +25,11 @@ public class Rq {
 
   public String getUrlPath() {
     return urlPath;
+  }
+
+  public void setCommand(String cmd) {
+    urlPath = Util.getUrlPathFromUrl(cmd);
+    params = Util.getParamsFromUrl(cmd);
   }
 
   public int getIntParam(String paramName, int defaultValue) {
@@ -48,16 +55,26 @@ public class Rq {
     return params.get(paramName);
   }
 
+  public Object getSessionAttr(String key) {
+    Session session = Container.getSession();
+
+    return session.getAttribute(key);
+  }
+
+  public Member getLoginedMember() {
+    return (Member) getSessionAttr("loginedMember");
+  }
+
   public void setSessionAttr(String key, Object value) {
     Session session = Container.getSession();
 
     session.setAttribute(key, value);
   }
 
-  public boolean isLogined(String loginedMember) {
+  public boolean hasSessionAttr(String key) {
     Session session = Container.getSession();
 
-    return session.hasAttribute(loginedMember);
+    return session.hasAttribute(key);
   }
 
   public void removeSessionAttr(String loginedMember) {
@@ -66,7 +83,20 @@ public class Rq {
     session.removeAttribute(loginedMember);
   }
 
-  public boolean isLogout(String loginedMember) {
-    return !isLogined(loginedMember);
+  public boolean isLogined() {
+    return hasSessionAttr("loginedMember");
   }
+
+  public boolean isLogout() {
+    return !isLogined();
+  }
+
+  public void login(Member member) {
+    setSessionAttr("loginedMember", member);
+  }
+
+  public void logout() {
+    removeSessionAttr("loginedMember");
+  }
+
 }
