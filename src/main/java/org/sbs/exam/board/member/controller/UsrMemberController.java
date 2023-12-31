@@ -34,9 +34,9 @@ public class UsrMemberController {
     System.out.printf("로그인 아이디 : ");
     String loginId = Container.sc.nextLine();
 
-    boolean isDupLoginId = isDuplicatedLoginId(loginId);
+    Member member = getMemberByLoginId(loginId);
 
-    if(isDupLoginId == true) {
+    if (member.getLoginId().equals(loginId)) {
       System.out.printf("\"%s\"은(는) 중복 된 로그인 아이디입니다.\n", loginId);
       return;
     }
@@ -64,21 +64,53 @@ public class UsrMemberController {
 
     int id = memberLastId + 1;
 
-    Member member = new Member(id, loginId, loginPw, name);
+    member = new Member(id, loginId, loginPw, name);
     members.add(member);
 
     System.out.printf("\"%s\"님 회원가입 되었습니다.\n", loginId);
     memberLastId = id;
   }
 
+  public void actionLogin() {
+    System.out.println("== 로그인 ==");
+    System.out.printf("로그인 아이디 : ");
+    String loginId = Container.sc.nextLine();
 
-  private boolean isDuplicatedLoginId(String loginId) {
+    if(loginId.trim().length() == 0) {
+      System.out.println("로그인 아이디를 입력해주세요.");
+      return;
+    }
+
+    Member member = getMemberByLoginId(loginId);
+
+    if (member == null) {
+      System.out.println("해당 로그인 아이디는 존재하지 않습니다.");
+      return;
+    }
+
+    System.out.printf("로그인 비밀번호 : ");
+    String loginPw = Container.sc.nextLine();
+
+    if(loginPw.trim().length() == 0) {
+      System.out.println("로그인 비밀번호를 입력해주세요.");
+      return;
+    }
+
+    if(member.getLoginPw().equals(loginPw) == false) {
+      System.out.println("로그인 비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
+    System.out.printf("\"%s\"님 로그인 되었습니다.\n", loginId);
+  }
+
+  private Member getMemberByLoginId(String loginId) {
     for(Member member : members) {
       if(member.getLoginId().equals(loginId)) {
-        return true;
+        return member;
       }
     }
 
-    return false;
+    return null;
   }
 }

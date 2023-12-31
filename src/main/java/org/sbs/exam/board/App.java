@@ -32,6 +32,8 @@ public class App {
         Container.usrArticleController.actionDelete(rq);
       } else if (rq.getUrlPath().equals("/usr/member/join")) {
         Container.usrMemberController.actionJoin();
+      } else if (rq.getUrlPath().equals("/usr/member/login")) {
+        Container.usrMemberController.actionLogin();
       } else if (cmd.equals("exit")) {
         System.out.println("프로그램을 종료합니다.");
         break;

@@ -114,7 +114,7 @@ public class UsrArticleController {
       return;
     }
 
-    Article article = foundArticleById(id);
+    Article article = getArticleById(id);
 
     if (article == null) {
       System.out.println("해당 게시물은 존재하지 않습니다.");
@@ -140,7 +140,7 @@ public class UsrArticleController {
       return;
     }
 
-    Article article = foundArticleById(id);
+    Article article = getArticleById(id);
 
     if (article == null) {
       System.out.println("해당 게시물은 존재하지 않습니다.");
@@ -169,7 +169,7 @@ public class UsrArticleController {
     }
 
     // Article article = articles.get(id - 1);
-    Article article = foundArticleById(id);
+    Article article = getArticleById(id);
 
     if (article == null) {
       System.out.println("해당 게시물은 존재하지 않습니다.");
@@ -180,7 +180,7 @@ public class UsrArticleController {
     System.out.printf("%d번 게시물을 삭제하였습니다.\n", id);
   }
 
-  private Article foundArticleById(int id) {
+  private Article getArticleById(int id) {
     for (Article article : articles) {
       if (article.getId() == id) {
         return article;
