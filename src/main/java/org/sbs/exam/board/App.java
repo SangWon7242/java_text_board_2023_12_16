@@ -46,6 +46,8 @@ public class App {
         Container.usrMemberController.actionJoin();
       } else if (rq.getUrlPath().equals("/usr/member/login")) {
         Container.usrMemberController.actionLogin(rq);
+      } else if (rq.getUrlPath().equals("/usr/member/logout")) {
+        Container.usrMemberController.actionLogout(rq);
       } else if (cmd.equals("exit")) {
         System.out.println("프로그램을 종료합니다.");
         break;
