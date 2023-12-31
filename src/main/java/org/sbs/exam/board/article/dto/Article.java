@@ -1,4 +1,4 @@
-package org.sbs.exam.board.article;
+package org.sbs.exam.board.article.dto;
 
 public class Article {
   private int id;

@@ -2,7 +2,7 @@ package org.sbs.exam.board.article.controller;
 
 import org.sbs.exam.board.Rq;
 import org.sbs.exam.board.Util;
-import org.sbs.exam.board.article.Article;
+import org.sbs.exam.board.article.dto.Article;
 import org.sbs.exam.board.container.Container;
 
 import java.util.ArrayList;

@@ -1,11 +1,7 @@
 package org.sbs.exam.board;
 
-import org.sbs.exam.board.article.Article;
 import org.sbs.exam.board.container.Container;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class App {
@@ -34,6 +30,8 @@ public class App {
         Container.usrArticleController.actionModify(rq);
       } else if (rq.getUrlPath().equals("/usr/article/delete")) {
         Container.usrArticleController.actionDelete(rq);
+      } else if (rq.getUrlPath().equals("/usr/member/join")) {
+        Container.usrMemberController.actionJoin();
       } else if (cmd.equals("exit")) {
         System.out.println("프로그램을 종료합니다.");
         break;
