@@ -55,11 +55,12 @@ public class UsrArticleController {
     System.out.println("-------------------");
     System.out.println("번호 / 제목");
 
+    String searchKeyword = rq.getParam("searchKeyword" , "");
+
+    // 검색 시작
     List<Article> filteredArticles = articles;
 
-    if (params.containsKey("searchKeyword")) {
-      String searchKeyword = params.get("searchKeyword");
-
+    if (searchKeyword.length() > 0) {
       filteredArticles = new ArrayList<>();
 
       for (Article article : articles) {
@@ -70,10 +71,14 @@ public class UsrArticleController {
         }
       }
     }
-
+    // 검색 끝
+    
+    // 정렬 시작
     List<Article> sortedArticles = filteredArticles;
 
-    boolean orderByIdDesc = true;
+    String orderBy = rq.getParam("orderBy", "idDesc");
+
+    boolean orderByIdDesc = orderBy.equals("idDesc");
 
     if (params.containsKey("orderBy") && params.get("orderBy").equals("idAsc")) {
       orderByIdDesc = false;
@@ -82,6 +87,7 @@ public class UsrArticleController {
     if (orderByIdDesc) {
       sortedArticles = Util.reverseList(sortedArticles);
     }
+    // 정렬 끝
 
     for (Article article : sortedArticles) {
       System.out.printf("%d / %s\n", article.getId(), article.getTitle());
@@ -91,18 +97,10 @@ public class UsrArticleController {
   }
 
   public void showDetail(Rq rq) {
-    Map<String, String> params = rq.getParams();
+    int id = rq.getIntParam("id", 0);
 
-    if (params.containsKey("id") == false) {
-      System.out.println("id를 입력해주세요.");
-      return;
-    }
-
-    int id = 0;
-    try {
-      id = Integer.parseInt(params.get("id"));
-    } catch (NumberFormatException e) {
-      System.out.println("id를 정수형태로 입력해주세요.");
+    if(id == 0) {
+      System.out.println("id를 올바르게 입력해주세요.");
       return;
     }
 
@@ -130,18 +128,10 @@ public class UsrArticleController {
   }
 
   public void actionModify(Rq rq) {
-    Map<String, String> params = rq.getParams();
+    int id = rq.getIntParam("id", 0);
 
-    if (params.containsKey("id") == false) {
-      System.out.println("id를 입력해주세요.");
-      return;
-    }
-
-    int id = 0;
-    try {
-      id = Integer.parseInt(params.get("id"));
-    } catch (NumberFormatException e) {
-      System.out.println("id를 정수형태로 입력해주세요.");
+    if(id == 0) {
+      System.out.println("id를 올바르게 입력해주세요.");
       return;
     }
 
@@ -166,18 +156,10 @@ public class UsrArticleController {
   }
 
   public void actionDelete(Rq rq) {
-    Map<String, String> params = rq.getParams();
+    int id = rq.getIntParam("id", 0);
 
-    if (params.containsKey("id") == false) {
-      System.out.println("id를 입력해주세요.");
-      return;
-    }
-
-    int id = 0;
-    try {
-      id = Integer.parseInt(params.get("id"));
-    } catch (NumberFormatException e) {
-      System.out.println("id를 정수형태로 입력해주세요.");
+    if(id == 0) {
+      System.out.println("id를 올바르게 입력해주세요.");
       return;
     }
 

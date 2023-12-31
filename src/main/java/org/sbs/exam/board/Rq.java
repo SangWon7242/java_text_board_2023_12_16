@@ -20,4 +20,27 @@ public class Rq {
   public String getUrlPath() {
     return urlPath;
   }
+
+  public int getIntParam(String paramName, int defaultValue) {
+    // id 값이 없는 경우
+    if(params.containsKey(paramName) == false) {
+      return defaultValue;
+    }
+
+    // id 있다고 하더라도 그 값이 정수가 아닌 경우
+    try {
+      return Integer.parseInt(params.get(paramName));
+    }
+    catch (NumberFormatException e) {
+      return defaultValue;
+    }
+  }
+
+  public String getParam(String paramName, String defaultValue) {
+    if(params.containsKey(paramName) == false) {
+      return defaultValue;
+    }
+
+    return params.get(paramName);
+  }
 }
