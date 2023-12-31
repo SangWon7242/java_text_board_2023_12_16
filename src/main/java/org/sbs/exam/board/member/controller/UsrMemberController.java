@@ -1,7 +1,6 @@
 package org.sbs.exam.board.member.controller;
 
 import org.sbs.exam.board.Rq;
-import org.sbs.exam.board.article.dto.Article;
 import org.sbs.exam.board.container.Container;
 import org.sbs.exam.board.member.dto.Member;
 
@@ -71,7 +70,7 @@ public class UsrMemberController {
     memberLastId = id;
   }
 
-  public void actionLogin() {
+  public void actionLogin(Rq rq) {
     System.out.println("== 로그인 ==");
     System.out.printf("로그인 아이디 : ");
     String loginId = Container.sc.nextLine();
@@ -100,6 +99,8 @@ public class UsrMemberController {
       System.out.println("로그인 비밀번호가 일치하지 않습니다.");
       return;
     }
+
+    rq.setSessionAttr("loginedMember", member);
 
     System.out.printf("\"%s\"님 로그인 되었습니다.\n", loginId);
   }

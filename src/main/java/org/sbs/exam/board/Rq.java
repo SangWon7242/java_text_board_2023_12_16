@@ -1,5 +1,9 @@
 package org.sbs.exam.board;
 
+import org.sbs.exam.board.container.Container;
+import org.sbs.exam.board.member.dto.Member;
+import org.sbs.exam.board.session.Session;
+
 import java.util.Map;
 
 public class Rq {
@@ -42,5 +46,11 @@ public class Rq {
     }
 
     return params.get(paramName);
+  }
+
+  public void setSessionAttr(String key, Object value) {
+    Session session = Container.getSession();
+
+    session.setAttribute(key, value);
   }
 }
